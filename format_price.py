@@ -39,7 +39,7 @@ def make_left_side(left_side_string):
             nums_through_space_list += after_three_nums
         three_nums_through_space_string = left_side_string[-whole_numbers_amount:]
         three_nums_through_space_list = [three_nums_through_space_string[x*3: x*3 + 3]
-                                                                for x in range(amount_of_three_nums_through_space)]
+                                         for x in range(amount_of_three_nums_through_space)]
         nums_through_space_list += three_nums_through_space_list
         return ' '.join(nums_through_space_list)
     else:
