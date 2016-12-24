@@ -13,8 +13,10 @@ python3 python3 format_price.py 12345.67
 
 # 2.Запускаем его в качестве модуля
 
-В той же директории 
+В качестве модуля импортируем функцию и вызовем ее с аргументом в виде строки.
 
 ```sh
-from 
+from price_format import price_format
+
+formated_string = format_string('12345.6')
 ```
