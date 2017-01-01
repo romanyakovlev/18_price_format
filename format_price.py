@@ -9,18 +9,17 @@ def parse_arguments():
 
 
 def format_price(price):
-    price_string = try_to_float(price)
+    price_string = try_to_float_else_throw_exception(price)
     formatted_price_string = []
     left_side_string, right_side_string = price_string.split('.')[0], price_string.split('.')[1]
     left_side = make_left_side(left_side_string)
     formatted_price_string.append(left_side)
-    is_all_zeros = sum(1 for x in right_side_string if x is '0') is len(right_side_string)
-    if not is_all_zeros:
+    if bool(int(right_side_string)) is not False:
         formatted_price_string.append(right_side_string)
     return '.'.join(formatted_price_string)
 
 
-def try_to_float(price):
+def try_to_float_else_throw_exception(price):
     try:
         price_string = str(float(price))
         return price_string
@@ -30,23 +29,17 @@ def try_to_float(price):
 
 
 def make_left_side(left_side_string):
-    amount_of_three_nums_through_space = len(left_side_string) // 3
-    whole_numbers_amount = amount_of_three_nums_through_space * 3
-    if amount_of_three_nums_through_space:
-        nums_through_space_list = []
-        after_three_nums = left_side_string[:-whole_numbers_amount]
-        if after_three_nums:
-            nums_through_space_list += after_three_nums
-        three_nums_through_space_string = left_side_string[-whole_numbers_amount:]
-        three_nums_through_space_list = [three_nums_through_space_string[x*3: x*3 + 3]
-                                         for x in range(amount_of_three_nums_through_space)]
-        nums_through_space_list += three_nums_through_space_list
-        return ' '.join(nums_through_space_list)
-    else:
-        nums_without_space = left_side_string
-        return nums_without_space
+    reversed_left_side = left_side_string[::-1]
+    formatted_left_side_string_list = list(reversed([''.join(list(reversed(reversed_left_side[x: x+3])))
+                                                     for x in (range(0, len(reversed_left_side), 3))]))
+    return ' '.join(formatted_left_side_string_list)
+
+
+def output_value(value):
+    print("Отформатированное значение - {}".format(value))
 
 
 if __name__ == '__main__':
     number_value = parse_arguments()
-    print(format_price(number_value))
+    formatted_value = format_price(number_value)
+    output_value(formatted_value)
