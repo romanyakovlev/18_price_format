@@ -29,11 +29,19 @@ def try_to_float_else_throw_exception(price):
 
 
 def make_left_side(left_side_string):
-    num_of_signs = 3
+    thouthand_len = 3
+    # Реверсим строку левой части цены
     reversed_left_side = left_side_string[::-1]
-    formatted_left_side_string_list = list(reversed([''.join(list(reversed(reversed_left_side[x: x+num_of_signs])))
-                                                     for x in (range(0, len(reversed_left_side), num_of_signs))]))
-    return ' '.join(formatted_left_side_string_list)
+    formatted_left_side_string_list = []
+    # Реверснутую строку разбиваем на элементы по 3 символа
+    for x in range(0, len(reversed_left_side), thouthand_len):
+        three_symbol_elem = reversed_left_side[x: x+thouthand_len]
+        # Реверсим полученные элементы, чтобы они приняли изначальную последовательность
+        reversed_elem = ''.join(list(reversed(three_symbol_elem)))
+        formatted_left_side_string_list.append(reversed_elem)
+    # Реверсим список из полученных элементов
+    formatted_string = ' '.join(list(reversed(formatted_left_side_string_list)))
+    return formatted_string
 
 
 def output_value(value):
