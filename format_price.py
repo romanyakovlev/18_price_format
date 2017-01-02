@@ -21,6 +21,11 @@ def format_price(price):
 
 def try_to_float_else_throw_exception(price):
     try:
+        if price.count(",") is 1:
+            # Чтобы не делать "price = price.replace() создал новую переменную и сразу вывел"
+            formatted_price = price.replace(",", ".")
+            price_string = str(float(formatted_price))
+            return price_string
         price_string = str(float(price))
         return price_string
     except ValueError:
