@@ -45,7 +45,6 @@ def separate_by_3_signs_from_right(string):
     """
     signs_in_1000 = 3
     reversed_left_side = string[::-1]
-    #formatted_left_side_string_list = []
     reversed_list_of_separated_elements = []
     for elem_index in range(0, len(reversed_left_side), signs_in_1000):
         reversed_three_sign_list = reversed_left_side[elem_index: elem_index+signs_in_1000]
