@@ -22,7 +22,6 @@ def format_price(price):
 def try_to_float_else_throw_exception(price):
     try:
         if price.count(",") is 1:
-            # Чтобы не делать "price = price.replace() создал новую переменную и сразу вывел"
             formatted_price = price.replace(",", ".")
             price_string = str(float(formatted_price))
             return price_string
@@ -34,18 +33,25 @@ def try_to_float_else_throw_exception(price):
 
 
 def make_left_side(left_side_string):
-    thouthand_len = 3
-    # Реверсим строку левой части цены
-    reversed_left_side = left_side_string[::-1]
-    formatted_left_side_string_list = []
-    # Реверснутую строку разбиваем на элементы по 3 символа
-    for x in range(0, len(reversed_left_side), thouthand_len):
-        three_symbol_elem = reversed_left_side[x: x+thouthand_len]
-        # Реверсим полученные элементы, чтобы они приняли изначальную последовательность
-        reversed_elem = ''.join(list(reversed(three_symbol_elem)))
-        formatted_left_side_string_list.append(reversed_elem)
-    # Реверсим список из полученных элементов
-    formatted_string = ' '.join(list(reversed(formatted_left_side_string_list)))
+    formatted_price = separate_by_3_signs_from_right(left_side_string)
+    return formatted_price
+
+
+def separate_by_3_signs_from_right(string):
+    """
+    Функция форматирует строку, ставя разделитель в виде пробела после
+    каждого 3-го числа. Так как отсчет для разделения начинаем слева, делаем
+    реверс строки и разделяем ее, после чего делаем реверс обратно. 
+    """
+    signs_in_1000 = 3
+    reversed_left_side = string[::-1]
+    #formatted_left_side_string_list = []
+    reversed_list_of_separated_elements = []
+    for elem_index in range(0, len(reversed_left_side), signs_in_1000):
+        reversed_three_sign_list = reversed_left_side[elem_index: elem_index+signs_in_1000]
+        three_sign_string = ''.join(list(reversed(reversed_three_sign_list)))
+        reversed_list_of_separated_elements.append(three_sign_string)
+    formatted_string = ' '.join(list(reversed(reversed_list_of_separated_elements)))
     return formatted_string
 
 
